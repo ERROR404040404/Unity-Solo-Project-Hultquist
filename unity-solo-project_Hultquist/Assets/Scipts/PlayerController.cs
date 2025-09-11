@@ -15,6 +15,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame

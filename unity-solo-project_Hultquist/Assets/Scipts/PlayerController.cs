@@ -9,6 +9,14 @@ public class NewMonoBehaviourScript : MonoBehaviour
     float inputX;
     float inputY;
 
+    float directionface;
+
+    float acceleration;
+    float MaxSpeed;
+    float AccelTime;
+   
+    
+
     public float speed = 5f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,7 +25,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         //Cursor.visible = false; makes cursur non-visible
-       // Cursor.lockState = CursorLockMode.Locked; locks cursor
+        // Cursor.lockState = CursorLockMode.Locked; locks cursor
+        
     }
 
     // Update is called once per frame
@@ -27,8 +36,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         tempMove.x = inputX * speed;
 
-        rb.linearVelocity = (tempMove.x * transform.right) + (tempMove.y * transform.up);
-
+        
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -37,5 +45,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         inputX = InputAxis.x;
         inputY = InputAxis.y;
+
+
+        
     } 
 }

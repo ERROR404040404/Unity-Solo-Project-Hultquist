@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
     float acceleration;
     float MaxSpeed;
     float AccelTime;
-   
-    
+
+    public int health = 10;
+    public int maxHealth = 10;
 
     public float speed = 5f;
 
@@ -36,7 +38,10 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
         tempMove.x = inputX * speed;
 
-        
+        if(health <= 0) //R U DED?
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -48,5 +53,11 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
 
         
-    } 
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        health = 0;
+    }
 }

@@ -58,6 +58,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        health = 0;
+        if (collision.tag == "Hazard")
+        {
+            health = 0;
+        }
     }
 }

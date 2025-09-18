@@ -6,12 +6,12 @@ TagManager:
   tags:
   - Health
   - kill_zone
-  - hazard
+  - Hazard
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

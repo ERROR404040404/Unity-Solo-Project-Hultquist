@@ -10,11 +10,11 @@ public class Weapon : MonoBehaviour
     public GameObject projectile;
     public AudioSource weaponSpeaker;
     public Transform firePoint;
-    public Camera firingDirection;
 
     [Header("Meta Attributes")]
     public bool canFire = true;
     public bool holdToAttack = true;
+    public bool reloading = false;
     public int weaponID;
     public string weaponName;
 
@@ -42,15 +42,15 @@ public class Weapon : MonoBehaviour
 
     public void fire()
     {
-        if(canFire && clip > 0 && weaponID > -1)
+        if(canFire && !reloading && clip > 0 && weaponID > -1)
         {
             weaponSpeaker.Play();
             GameObject p = Instantiate(projectile, firePoint.position, firePoint.rotation);
-            p.GetComponent<Rigidbody>().AddForce(firingDirection.transform.forward * projVelocity);
+            p.GetComponent<Rigidbody2D>().AddForce(firePoint.transform.right * projVelocity);
             Destroy(p, projLifespan);
             clip--;
             canFire = false;
-            StartCoroutine("cooldownFire", rof);
+            StartCoroutine("cooldownFire");
         }
     }
 
@@ -75,7 +75,9 @@ public class Weapon : MonoBehaviour
                 ammo -= reloadCount;
             }
 
-            StartCoroutine("cooldownFire", reloadCooldown);
+            reloading = true;
+            canFire = false;
+            StartCoroutine("reloadingCooldown");
             return;
         }
     }
@@ -87,10 +89,9 @@ public class Weapon : MonoBehaviour
         transform.SetPositionAndRotation(player.weaponSlot.position, player.weaponSlot.rotation);
         transform.SetParent(player.weaponSlot);
 
-        GetComponent<Rigidbody>().isKinematic = true;
-        GetComponent<Collider>().isTrigger = true;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        GetComponent<Collider2D>().isTrigger = true;
 
-        firingDirection = Camera.main;
         this.player = player;
     }
 
@@ -100,18 +101,24 @@ public class Weapon : MonoBehaviour
         
         transform.SetParent(null);
 
-        GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Collider>().isTrigger = false;
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Collider2D>().isTrigger = false;
 
-        firingDirection = null;
         this.player = null;
     }
 
-    IEnumerator cooldownFire(float cooldownTime)
+    IEnumerator cooldownFire()
     {
-        yield return new WaitForSeconds(cooldownTime);
+        yield return new WaitForSeconds(rof);
         
         if(clip > 0)
             canFire = true;
+    }
+    IEnumerator reloadingCooldown()
+    {
+        yield return new WaitForSeconds(reloadCooldown);
+
+        reloading = false;
+        canFire = true;
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    Ray2D interactRay;
-    RaycastHit2D interactHit;
     GameObject pickupObj;
     Camera playerCam;
 
@@ -18,12 +16,6 @@ public class PlayerController : MonoBehaviour
 
     float inputX;
     float inputY;
-
-    float directionface;
-
-    float acceleration;
-    float MaxSpeed;
-    float AccelTime;
 
     public int health = 10;
     public int maxHealth = 10;
@@ -38,7 +30,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         input = GetComponent<PlayerInput>();
-        interactRay = new Ray2D(transform.position, transform.right);
         weaponSlot = transform.GetChild(0);
 
 
@@ -52,12 +43,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Physics2D.Raycast(transform.position, transform.right))
+        if (Physics2D.Raycast(transform.position, transform.right, interactDistance).collider.tag == "weapon")
         {
-            if (interactHit.collider.tag == "weapon")
-            {
-                pickupObj = interactHit.collider.gameObject;
-            }
+            pickupObj = Physics2D.Raycast(transform.position, transform.right, interactDistance).transform.gameObject;
         }
         else
             pickupObj = null;
@@ -78,16 +66,21 @@ public class PlayerController : MonoBehaviour
     }
     public void Interact()
     {
+        
+
         if (pickupObj)
         {
             if (pickupObj.tag == "weapon")
                 pickupObj.GetComponent<Weapon>().equip(this);
+
+            Debug.Log("Test");
         }
     }
     public void Reload()
     {
         if (currentWeapon)
-            currentWeapon.reload();
+            if (!currentWeapon.reloading)
+                currentWeapon.reload();
     }
         
 
@@ -99,13 +92,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (context.ReadValueAsButton())
                     attacking = true;
+
                 else attacking = false;
             }
             else if (context.ReadValueAsButton())
                 currentWeapon.fire();
         }
-
-
     }
     public void Move(InputAction.CallbackContext context)
     {
@@ -113,8 +105,6 @@ public class PlayerController : MonoBehaviour
 
         inputX = InputAxis.x;
         inputY = InputAxis.y;
-
-
         
     }
 

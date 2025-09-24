@@ -7,6 +7,8 @@ TagManager:
   - Health
   - kill_zone
   - Hazard
+  - prjctl
+  - weapon
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,7 @@ TagManager:
   - Hazard
   - prjctl
   - weapon
+  - ui_health
   layers:
   - Default
   - TransparentFX

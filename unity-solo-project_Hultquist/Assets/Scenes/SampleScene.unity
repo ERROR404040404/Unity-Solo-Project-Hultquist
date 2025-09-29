@@ -2416,11 +2416,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1611591894632102325, guid: 43299b9776156994ebf4c9ff482d9425, type: 3}
       propertyPath: ammo
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611591894632102325, guid: 43299b9776156994ebf4c9ff482d9425, type: 3}
+      propertyPath: clip
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1611591894632102325, guid: 43299b9776156994ebf4c9ff482d9425, type: 3}
       propertyPath: maxAmmo
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1611591894632102325, guid: 43299b9776156994ebf4c9ff482d9425, type: 3}
+      propertyPath: clipSize
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1611591894632102325, guid: 43299b9776156994ebf4c9ff482d9425, type: 3}
       propertyPath: ammoRefill

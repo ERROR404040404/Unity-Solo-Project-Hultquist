@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
 
     public Rigidbody2D rb;
 
-    float inputX;
-    float inputY;
+    public float inputX;
+    public float inputY;
 
     public int health = 10;
     public int maxHealth = 10;
@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody2D>();
+        weaponSlot = transform.GetChild(0);
+        Cursor.visible = false;
 
         //Cursor.visible = false; makes cursur non-visible
         // Cursor.lockState = CursorLockMode.Locked; locks cursor
@@ -43,12 +45,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Physics2D.Raycast(transform.position, transform.right, interactDistance).collider.tag == "weapon")
+        if (Physics2D.Raycast(transform.position, transform.right, interactDistance))
         {
-            pickupObj = Physics2D.Raycast(transform.position, transform.right, interactDistance).transform.gameObject;
+            if (Physics2D.Raycast(transform.position, transform.right, interactDistance).collider.tag == "weapon")
+            {
+                pickupObj = Physics2D.Raycast(transform.position, transform.right, interactDistance).transform.gameObject;
+            }
+            else
+                pickupObj = null;
         }
-        else
-            pickupObj = null;
 
         if (currentWeapon)
             if (currentWeapon.holdToAttack && attacking)
@@ -64,6 +69,25 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+    private void FixedUpdate()
+    {
+        // Some Move Code, flips player
+        if (inputX < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            GetComponent<SpriteRenderer>().flipX = true;
+            Debug.Log("goin' left");
+        }
+        if (inputX > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+
+            GetComponent<SpriteRenderer>().flipX = false;
+            Debug.Log("goin' right");
+        }
+        
+    }
     public void Interact()
     {
         
@@ -73,7 +97,7 @@ public class PlayerController : MonoBehaviour
             if (pickupObj.tag == "weapon")
                 pickupObj.GetComponent<Weapon>().equip(this);
 
-            Debug.Log("Test");
+            Debug.Log("Weapon_Got");
         }
     }
     public void Reload()
@@ -105,7 +129,6 @@ public class PlayerController : MonoBehaviour
 
         inputX = InputAxis.x;
         inputY = InputAxis.y;
-        
     }
 
 

@@ -101,7 +101,7 @@ public class Weapon : MonoBehaviour
         
         transform.SetParent(null);
 
-        GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         GetComponent<Collider2D>().isTrigger = false;
 
         this.player = null;

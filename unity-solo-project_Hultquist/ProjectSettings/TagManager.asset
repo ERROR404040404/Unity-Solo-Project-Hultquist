@@ -10,6 +10,8 @@ TagManager:
   - prjctl
   - weapon
   - ui_health
+  - weaponUI
+  - ui_pause
   layers:
   - Default
   - TransparentFX

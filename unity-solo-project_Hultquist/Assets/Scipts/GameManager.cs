@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
             if (player.currentWeapon != null)
             {
-                weaponUI.SetActive(true);
+                weaponUI.SetActive(false);
 
                 ammoCounter.text = "Ammo: " + player.currentWeapon.ammo;
                 clip.text = "Clip: " + player.currentWeapon.clip + " / " + player.currentWeapon.clipSize;

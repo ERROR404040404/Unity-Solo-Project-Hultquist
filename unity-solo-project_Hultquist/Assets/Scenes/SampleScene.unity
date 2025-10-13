@@ -536,6 +536,7 @@ Transform:
   m_Children:
   - {fileID: 343061464}
   - {fileID: 477693107}
+  - {fileID: 1652714374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &175996381
@@ -2655,6 +2656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce9536d1477b8641b1fee4a6033fa4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mSpeed: 0.1
 --- !u!212 &1652714373
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2718,12 +2720,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652714371}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 175996380}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721056142
 GameObject:
@@ -3482,25 +3484,53 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4330357953561716129, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: m_Constraints
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6146347932904821860, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: m_Name
       value: Rifle
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: ammo
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: clip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: maxAmmo
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: clipSize
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 2524397910601543919}
     - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: ammoRefill
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: projectile
       value: 
       objectReference: {fileID: 7856325867021800092, guid: c6f465b5b265152479b2372d60656da7, type: 3}
+    - target: {fileID: 8721364977598831056, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
+      propertyPath: holdToAttack
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9178549316070773179, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.31
       objectReference: {fileID: 0}
     - target: {fileID: 9178549316070773179, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.58
+      value: -4.15
       objectReference: {fileID: 0}
     - target: {fileID: 9178549316070773179, guid: b15ed81ddb7f56d429762ec610a3901f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3563,4 +3593,3 @@ SceneRoots:
   - {fileID: 7240013466615024690}
   - {fileID: 632742519}
   - {fileID: 857090586}
-  - {fileID: 1652714374}

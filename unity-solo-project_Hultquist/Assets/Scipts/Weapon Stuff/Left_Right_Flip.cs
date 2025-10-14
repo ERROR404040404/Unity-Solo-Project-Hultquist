@@ -10,18 +10,12 @@ public class Left_Right_Flip : MonoBehaviour
     {
         // Some Move Code, flips player
         if (inputX < 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-
+        {        
             GetComponent<SpriteRenderer>().flipX = true;
-
         }
         if (inputX > 0)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-
+        {            
             GetComponent<SpriteRenderer>().flipX = false;
-
         }
     }
 

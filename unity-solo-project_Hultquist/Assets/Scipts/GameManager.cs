@@ -26,15 +26,11 @@ public class GameManager : MonoBehaviour
 
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-
-            weaponUI = GameObject.FindGameObjectWithTag("weaponUI");
             pauseMenu = GameObject.FindGameObjectWithTag("ui_pause");
 
             pauseMenu.SetActive(false);
 
             healthBar = GameObject.FindGameObjectWithTag("ui_health").GetComponent<Image>();
-            ammoCounter = GameObject.FindGameObjectWithTag("ui_ammo").GetComponent<TextMeshProUGUI>();
-            clip = GameObject.FindGameObjectWithTag("ui_clip").GetComponent<TextMeshProUGUI>();
 
 
         }
@@ -47,17 +43,7 @@ public class GameManager : MonoBehaviour
         {
             healthBar.fillAmount = (float)player.health / (float)player.maxHealth;
 
-            if (player.currentWeapon != null)
-            {
-                weaponUI.SetActive(false);
-
-                ammoCounter.text = "Ammo: " + player.currentWeapon.ammo;
-                clip.text = "Clip: " + player.currentWeapon.clip + " / " + player.currentWeapon.clipSize;
-
-            }
-
-            else
-                weaponUI.SetActive(false);
+            
 
         }
 

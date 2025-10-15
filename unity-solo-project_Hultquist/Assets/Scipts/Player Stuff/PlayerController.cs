@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     GameObject pickupObj;
     Camera playerCam;
+    public AudioSource speakers;
 
     public PlayerInput input;
     public Transform weaponSlot;

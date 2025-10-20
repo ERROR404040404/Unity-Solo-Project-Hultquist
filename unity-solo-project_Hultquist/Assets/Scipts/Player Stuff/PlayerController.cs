@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    private Camera cam;
     GameObject pickupObj;
     Camera playerCam;
     public AudioSource speakers;
@@ -12,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     public Weapon currentWeapon;
 
+    public float rForce = 5f;
 
     public Rigidbody2D rb;
 
@@ -30,6 +33,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
+        cam = Camera.main;
         input = GetComponent<PlayerInput>();
         weaponSlot = transform.GetChild(0);
 
@@ -70,7 +74,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
-    private void FixedUpdate()
+    private void FixedUpdate(Vector2 linearVelocity)
     {
         // Some Move Code, flips player
         if (inputX < 0)
@@ -87,8 +91,21 @@ public class PlayerController : MonoBehaviour
             GetComponent<SpriteRenderer>().flipX = false;
             Debug.Log("goin' right");
         }
-        
+        Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        // Recoil?
+        if (pickupObj.tag == "weapon")
+        {
+            if (currentWeapon)
+                if (currentWeapon.holdToAttack && attacking)
+                {
+                    Rigidbody2D.AddForce(transform.r = 
+                    
+                }
+        }
+
     }
+
+
     public void Interact()
     {
         
@@ -137,7 +154,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Hazard")
         {
-            health = 0;
+             health -= 2;
         }
     }
 }

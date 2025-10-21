@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     public Weapon currentWeapon;
 
-    public float rForce = 5f;
+    public float rForce = 100f;
+
 
     public Rigidbody2D rb;
 
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
-    private void FixedUpdate(Vector2 linearVelocity)
+    private void FixedUpdate()
     {
         // Some Move Code, flips player
         if (inputX < 0)
@@ -93,15 +94,20 @@ public class PlayerController : MonoBehaviour
         }
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         // Recoil?
-        if (pickupObj.tag == "weapon")
-        {
-            if (currentWeapon)
+              
+           if (currentWeapon)
                 if (currentWeapon.holdToAttack && attacking)
+                if (currentWeapon.clip != 1)
                 {
-                    Rigidbody2D.AddForce(transform.r = 
-                    
-                }
-        }
+                if (inputX < 0)
+                    rb.AddForce(-transform.right * rForce);
+                    rb.AddForce(transform.up * rForce);
+
+                if (inputX > 0)
+                    rb.AddForce(transform.right * rForce);
+                    rb.AddForce(transform.up * rForce);
+            }
+        
 
     }
 

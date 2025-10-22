@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     public Weapon currentWeapon;
 
-    public float rForce = 100f;
+    public float rForce = 20f;
 
+    public bool condRecoil = false;
 
     public Rigidbody2D rb;
 
@@ -38,7 +40,6 @@ public class PlayerController : MonoBehaviour
         input = GetComponent<PlayerInput>();
         weaponSlot = transform.GetChild(0);
 
-
         rb = GetComponent<Rigidbody2D>();
         weaponSlot = transform.GetChild(0);
         Cursor.visible = false;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    
     // Update is called once per frame
     private void Update()
     {
@@ -64,6 +66,17 @@ public class PlayerController : MonoBehaviour
         if (currentWeapon)
             if (currentWeapon.holdToAttack && attacking)
                 currentWeapon.fire();
+
+        if (!condRecoil)
+        {
+            StartCoroutine(WaitForCondition());
+        }
+
+        if (currentWeapon.clip == 1 && !condRecoil)
+        {
+            condRecoil = true;
+        }
+
 
 
         Vector2 tempMove = rb.linearVelocity;
@@ -93,24 +106,28 @@ public class PlayerController : MonoBehaviour
             Debug.Log("goin' right");
         }
         Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        // Recoil?
-              
-           if (currentWeapon)
-                if (currentWeapon.holdToAttack && attacking)
-                if (currentWeapon.clip != 1)
-                {
-                if (inputX < 0)
-                    rb.AddForce(-transform.right * rForce);
-                    rb.AddForce(transform.up * rForce);
-
-                if (inputX > 0)
-                    rb.AddForce(transform.right * rForce);
-                    rb.AddForce(transform.up * rForce);
-            }
+        
         
 
     }
+    IEnumerator WaitForCondition()
+    {
+        // Recoil?
+        
+        yield return new WaitUntil(() => condRecoil);
+        if (currentWeapon)
+            if (currentWeapon.clip != 1)
+                if (currentWeapon.holdToAttack && attacking)
+                {
+                    if (inputX < 0)
+                        rb.AddForce(-transform.right * rForce);
+                    rb.AddForce(transform.up * rForce);
 
+                    if (inputX > 0)
+                        rb.AddForce(transform.right * rForce);
+                    rb.AddForce(transform.up * rForce);
+                }
+    }
 
     public void Interact()
     {
@@ -158,7 +175,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Hazard")
+        if (collision.tag == "Hazard" || collision.tag == "Enemy")
         {
              health -= 2;
         }

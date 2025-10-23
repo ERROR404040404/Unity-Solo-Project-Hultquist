@@ -72,9 +72,12 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(WaitForCondition());
         }
 
-        if (currentWeapon.clip == 1 && !condRecoil)
+        if (currentWeapon.clip == 0 && !condRecoil)
         {
             condRecoil = true;
+            new WaitForSeconds(3f);
+
+            condRecoil = false;
         }
 
 
@@ -175,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Hazard" || collision.tag == "Enemy")
+        if (collision.tag == "Hazard" || collision.tag == "enemy")
         {
              health -= 2;
         }

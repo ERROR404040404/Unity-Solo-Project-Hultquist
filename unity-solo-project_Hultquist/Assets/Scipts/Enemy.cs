@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public float jumpForce = 2f;
     public LayerMask groundLayer;
 
+    public int eHealth = 3;
+    public int eMaxHealth = 3;
+
     private Rigidbody2D rb;
     private bool isGrounded;
     private bool shouldJump;
@@ -63,4 +66,26 @@ public class Enemy : MonoBehaviour
             rb.AddForce(new Vector2(jumpDirection.x, jumpForce), ForceMode2D.Impulse);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "prjctl")
+        {
+            eHealth -= 2;
+            if (eHealth < 1)
+                {
+                transform.localPosition = new Vector3(0, 0, 0);
+            }
+        }
+    }
+
+
+
+
+
+
+
 }
+
+
+

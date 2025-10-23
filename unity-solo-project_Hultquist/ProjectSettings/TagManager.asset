@@ -12,6 +12,7 @@ TagManager:
   - ui_health
   - weaponUI
   - ui_pause
+  - enemy
   layers:
   - Default
   - TransparentFX

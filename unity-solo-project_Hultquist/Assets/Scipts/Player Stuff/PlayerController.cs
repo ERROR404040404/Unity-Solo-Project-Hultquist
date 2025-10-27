@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (currentWeapon.clip == 0 && !condRecoil)
         {
             condRecoil = true;
-            new WaitForSeconds(3f);
+            Invoke("DelayedAction", 3f);
 
             condRecoil = false;
         }

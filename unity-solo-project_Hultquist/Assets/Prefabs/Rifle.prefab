@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3645013478baa4687303fd96ef810b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
+  projectile: {fileID: 7856325867021800092, guid: c6f465b5b265152479b2372d60656da7, type: 3}
   weaponSpeaker: {fileID: 0}
   firePoint: {fileID: 0}
   canFire: 1

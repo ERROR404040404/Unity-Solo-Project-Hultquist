@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     public Weapon currentWeapon;
 
-    public float rForce = 20f;
+    public float rForce = 2f;
 
     public bool condRecoil = false;
 
@@ -76,8 +76,10 @@ public class PlayerController : MonoBehaviour
         {
             condRecoil = true;
             Invoke("DelayedAction", 3f);
-
-            condRecoil = false;
+            
+                
+           
+            
         }
 
 
@@ -91,6 +93,12 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
+
+    void DelayedAction()
+    {
+        condRecoil = false;
+    }
+
     private void FixedUpdate()
     {
         // Some Move Code, flips player
@@ -124,11 +132,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if (inputX < 0)
                         rb.AddForce(-transform.right * rForce);
-                    rb.AddForce(transform.up * rForce);
+                    rb.AddForce((transform.up * rForce)/100000);
 
                     if (inputX > 0)
                         rb.AddForce(transform.right * rForce);
-                    rb.AddForce(transform.up * rForce);
+                    rb.AddForce((transform.up * rForce)/100000);
                 }
     }
 

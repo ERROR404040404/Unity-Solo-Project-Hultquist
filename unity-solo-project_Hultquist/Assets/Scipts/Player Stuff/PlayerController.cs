@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -75,13 +75,12 @@ public class PlayerController : MonoBehaviour
         if (currentWeapon.clip == 0 && !condRecoil)
         {
             condRecoil = true;
-            Invoke("DelayedAction", 3f);
-            
-                
-           
-            
+         
         }
-
+        if (condRecoil == true)
+        {
+            Invoke("DelayedAction", 3f);
+        }
 
 
         Vector2 tempMove = rb.linearVelocity;
@@ -130,13 +129,14 @@ public class PlayerController : MonoBehaviour
             if (currentWeapon.clip != 1)
                 if (currentWeapon.holdToAttack && attacking)
                 {
+                    // idk why the transform.right isnt working ‾\0_0/‾
                     if (inputX < 0)
-                        rb.AddForce(-transform.right * rForce);
-                    rb.AddForce((transform.up * rForce)/100000);
+                    rb.AddForce((-transform.right * rForce)/1);
+                    rb.AddForce((transform.up * rForce)/150);
 
                     if (inputX > 0)
-                        rb.AddForce(transform.right * rForce);
-                    rb.AddForce((transform.up * rForce)/100000);
+                    rb.AddForce((transform.right * rForce)/1);
+                    rb.AddForce((transform.up * rForce)/150);
                 }
     }
 
@@ -189,6 +189,10 @@ public class PlayerController : MonoBehaviour
         if (collision.tag == "Hazard" || collision.tag == "enemy")
         {
              health -= 2;
+        }
+        if (collision.tag == "Health")
+            {
+            health += 4;
         }
     }
 }
